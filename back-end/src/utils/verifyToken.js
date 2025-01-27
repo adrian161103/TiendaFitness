@@ -8,6 +8,6 @@ export  function verifyToken(token) {
       return decoded;
     } catch (error) {
         
-        throw new Error("token invalido");
+        throw new Error("Invalid token");
     }
 }

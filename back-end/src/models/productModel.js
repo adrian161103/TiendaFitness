@@ -35,7 +35,7 @@ const productSchema = new mongoose.Schema({
   price: {
     amount: {
       type: Number,
-      required: [true, "El precio es requerido"],
+      required: [true, "Price is required"],
       min: [0, "El precio no puede ser negativo"],
     },
     currency: {

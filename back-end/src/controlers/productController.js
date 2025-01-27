@@ -10,7 +10,7 @@ export const getProducts = async (req, res) => {
   } catch (error) {
     return res
       .status(500)
-      .json({ message: "error interno del servidor", error });
+      .json({ message: "Internal server error", error });
   }
 };
 
