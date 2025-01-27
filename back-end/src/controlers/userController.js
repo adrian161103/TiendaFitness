@@ -86,10 +86,9 @@ if (bcrypt.compareSync(req.body.password, userFound.password)){
   };
   const token = jwt.sign(payload, "secret", {expiresIn: "1d", });
   
-  console.log(req.session);
-  req.session.token = token;
+  // req.session.token = token;
 
-  return res.status(200).json({message: "logged in"});
+  return res.status(200).json({message: "logged in",token});
 } else{
   return res.status(404).json({ message: "Incorrect email or password" });
 }

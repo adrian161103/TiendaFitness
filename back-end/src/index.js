@@ -6,9 +6,13 @@ import userRoute from "./routes/userRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
 import productRoute from "./routes/productRoute.js";
 import session from "express-session";
+import cors from "cors";
 const app = express();
 
-
+app.use(cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"]
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
