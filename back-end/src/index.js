@@ -5,14 +5,12 @@ import {conectDB} from "./db.js";
 import userRoute from "./routes/userRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
 import productRoute from "./routes/productRoute.js";
-import cookieParser from "cookie-parser";
 import session from "express-session";
 const app = express();
 
 
 
 app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
 secret: "secret",

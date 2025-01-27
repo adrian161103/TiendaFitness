@@ -89,7 +89,7 @@ if (bcrypt.compareSync(req.body.password, userFound.password)){
   console.log(req.session);
   req.session.token = token;
 
-  return res.status(200).json({message: "logged in", token});
+  return res.status(200).json({message: "logged in"});
 } else{
   return res.status(404).json({ message: "email o contraseña erroneo" });
 }

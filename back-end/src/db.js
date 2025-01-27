@@ -12,5 +12,3 @@ export const conectDB = async () => {
     process.exit(1);
   }
 };
-
-

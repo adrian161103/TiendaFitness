@@ -6,7 +6,7 @@ import {verifyTokenMiddleware} from "../middlewares/verifyTokenMiddleware.js";
 const userRoute = express.Router();
 
 
-userRoute.post("/create", createUser);
+userRoute.post("/register", createUser);
 userRoute.get("/get",verifyTokenMiddleware, getUser);
 
 userRoute.delete("/delete/:id", verifyTokenMiddleware, deleteUser)

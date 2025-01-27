@@ -24,8 +24,8 @@ export const createProduct = async (req, res) => {
         .status(400)
         .json({ message: `Product ${name} already exists` });
     }
-    const saveProduct = await productData.save();
-    return res.status(200).json(saveProduct);
+    const savedProduct = await productData.save();
+    return res.status(200).json(savedProduct);
   } catch (error) {
     return res.status(500).json({ message: "internal server error", error });
   }

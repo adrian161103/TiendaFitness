@@ -10,12 +10,12 @@ const productSchema = new mongoose.Schema({
     lowercase: true,
     unique: true,
     minLength: 2,
-    maxLength: 30,
+    maxLength: 100,
   },
   description: {
     type: String,
     minLength: 2,
-    maxLength: 100,
+    maxLength: 500,
   },
 
   status: {
@@ -33,9 +33,21 @@ const productSchema = new mongoose.Schema({
   },
   
   price: {
-    type: Number,
-    required: [true, "precio es requerido"],
-    min: [0, "precio no puede ser negativo"],
+    amount: {
+      type: Number,
+      required: [true, "El precio es requerido"],
+      min: [0, "El precio no puede ser negativo"],
+    },
+    currency: {
+      type: String,
+      required: [true, "La moneda es requerida"],
+      enum: {
+        values: ["USD", "PESOS", "EUR"], 
+        message: "{VALUE} no es una moneda válida",
+      },
+      default: "USD", 
+      set: (value) => value.toUpperCase(),
+    },
   },
   profiRate: {
     type: Number,
