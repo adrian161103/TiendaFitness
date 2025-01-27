@@ -66,6 +66,17 @@ npm run dev
 - POST /api/category/create : Crea una nueva categoría ➕
 - DELETE /api/category/delete/ :id : Elimina una categoría 🗑️
 
+---
+## **Usando Postman o Thunder**
+- Ejemplo de como /crear un usuario, usando Postman (se hace de manera similar en thunder).
+  
+![image](https://github.com/user-attachments/assets/484b6a71-894b-4c22-9232-bfdeb88e73e5)
+
+
+
+  ---
+  ## 🙏 ¡Gracias por utilizar este proyecto!:
+Si tienes preguntas o sugerencias, no dudes en contactarme o hacer un iusse. Espero que este backend de tienda fitness sea útil para tus proyectos. ¡Gracias! 😄
 
 
 
