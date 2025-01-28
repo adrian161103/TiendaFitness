@@ -14,7 +14,7 @@ Este es un proyecto backend para una tienda de productos fitness. Permite gestio
 - **bcrypt** 🔒
 - **jsonwebtoken** 🛡️
 - **dotenv** 📄
-
+- **cors** 🔗
 ---
 
 ## ⚡ ¿Cómo correr el proyecto?
