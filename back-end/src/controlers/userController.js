@@ -74,6 +74,9 @@ export const updatedUser = async (req, res) => {
 
 export const validate = async (req, res) => {
 try {
+  if (!req.body.email || !req.body.password) {
+    return res.status(400).json({ message: "email and password are required" });
+  }
   const userFound =await User.findOne({ email: req.body.email });
   if (!userFound) {
     return res.status(404).json({ message: "Incorrect email or password" });
@@ -86,7 +89,6 @@ if (bcrypt.compareSync(req.body.password, userFound.password)){
   };
   const token = jwt.sign(payload, "secret", {expiresIn: "1d", });
   
-  // req.session.token = token;
 
   return res.status(200).json({message: "logged in",token});
 } else{
