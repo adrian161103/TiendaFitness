@@ -76,10 +76,10 @@ npm run dev
  El proyecto utiliza Multer (configurado en src/middlewares/upload.js) para gestionar la carga de archivos. Se define un almacenamiento 
  personalizado que:
 
-  -Destino: Guarda los archivos en la carpeta src/uploads/.
-  -Nombre único: Genera un nombre único para cada archivo combinando el nombre del campo, la fecha y un número aleatorio junto con la extensión 
-   original.
-  -Filtro de archivos: Solo permite la carga de archivos cuyo mimetype comience con "image/", asegurando que se suban únicamente imágenes.
+  - Destino: Guarda los archivos en la carpeta src/uploads/.
+  - Nombre único: Genera un nombre único para cada archivo combinando el nombre del campo, la fecha y un número aleatorio junto con la 
+    extensión original.
+  - Filtro de archivos: Solo permite la carga de archivos cuyo mimetype comience con "image/", asegurando que se suban únicamente imágenes.
 
 -Integración en el endpoint:
 
