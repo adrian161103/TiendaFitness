@@ -1,6 +1,7 @@
 # TiendaFitness 🏋️‍♂️💪
 
 **Descripción**  
+
 Este es un proyecto backend para una tienda de productos fitness. Permite gestionar usuarios, categorías de productos y productos en sí mismos 
 de manera segura. Además de las operaciones CRUD básicas, el proyecto incluye funcionalidades para la carga de imágenes mediante Multer, 
 autenticación basada en JSON Web Tokens (JWT) y manejo de sesiones.
@@ -80,6 +81,7 @@ npm run dev
   -Filtro de archivos: Solo permite la carga de archivos cuyo mimetype comience con "image/", asegurando que se suban únicamente imágenes.
 
 -Integración en el endpoint:
+
 En la ruta de productos (src/routes/productRoute.js), el endpoint POST /api/product/create utiliza el middleware upload.single("image") para 
 procesar el archivo. En el controlador (createProduct en src/controlers/productController.js), si se recibe un archivo se asigna la URL 
 generada a la propiedad imageUrl del producto.
