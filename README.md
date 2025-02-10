@@ -1,8 +1,9 @@
 # TiendaFitness 🏋️‍♂️💪
 
 **Descripción**  
-Este es un proyecto backend para una tienda de productos fitness. Permite gestionar usuarios, categorías de productos, y productos en sí mismos, de manera segura.
-
+ Este es un proyecto backend para una tienda de productos fitness. Permite gestionar usuarios, categorías de productos y productos en sí mismos 
+ de manera segura. Además de las operaciones CRUD básicas, el proyecto incluye funcionalidades para la carga de imágenes mediante Multer, 
+ autenticación basada en JSON Web Tokens (JWT) y manejo de sesiones.
 ---
 
 ## 🚀 Tecnologías utilizadas
@@ -15,6 +16,7 @@ Este es un proyecto backend para una tienda de productos fitness. Permite gestio
 - **jsonwebtoken** 🛡️
 - **dotenv** 📄
 - **cors** 🔗
+- - **multer** 📷
 ---
 
 ## ⚡ ¿Cómo correr el proyecto?
@@ -34,7 +36,7 @@ npm install
 3. **Crea un archivo .envcon las siguientes variables de entorno:**
 ```bash
 PORT=3000
-MONGODB_URI="mongodb://127.0.0.1:27017/tp"
+MONGODB_URI="mongodb://127.0.0.1:27017/example"
 ```
 
 ---
@@ -65,6 +67,41 @@ npm run dev
 - GET /api/category/get : Obtiene todas las categorías 🏷️
 - POST /api/category/create : Crea una nueva categoría ➕
 - DELETE /api/category/delete/ :id : Elimina una categoría 🗑️
+---
+##🧑‍💻**Detalles adicionales del código** 
+- **Manejo de Carga de Imágenes con Multer** 
+- Configuración de Multer:
+ El proyecto utiliza Multer (configurado en src/middlewares/upload.js) para gestionar la carga de archivos. Se define un almacenamiento 
+ personalizado que:
+
+  -Destino: Guarda los archivos en la carpeta src/uploads/.
+  -Nombre único: Genera un nombre único para cada archivo combinando el nombre del campo, la fecha y un número aleatorio junto con la extensión 
+   original.
+  -Filtro de archivos: Solo permite la carga de archivos cuyo mimetype comience con "image/", asegurando que se suban únicamente imágenes.
+
+-Integración en el endpoint:
+ En la ruta de productos (src/routes/productRoute.js), el endpoint POST /api/product/create utiliza el middleware upload.single("image") para 
+ procesar el archivo. En el controlador (createProduct en src/controlers/productController.js), si se recibe un archivo se asigna la URL 
+ generada a la propiedad imageUrl del producto.
+---
+## **Seguridad y Organización**
+-Autenticación:
+ Se implementa autenticación basada en JSON Web Tokens (JWT). El middleware verifyTokenMiddleware.js se encarga de verificar el token enviado 
+ en la cabecera Authorization, garantizando que solo usuarios autenticados puedan acceder a determinados endpoints.
+
+-Manejo de Sesiones:
+ Se utiliza express-session para gestionar sesiones, proporcionando una capa adicional de seguridad y control del estado del usuario.
+
+-Estructura Modular:
+ El proyecto está organizado en módulos:
+
+  -Controladores: Lógica de negocio y operaciones CRUD (por ejemplo, productController.js).
+  -Rutas: Definición de endpoints (por ejemplo, productRoute.js).
+  -Middlewares: Funcionalidades auxiliares como la verificación de tokens y la carga de archivos.
+  -Modelos: Esquemas y modelos para MongoDB.
+  -Servir Archivos Estáticos:
+   En src/index.js se configura Express para servir archivos estáticos desde el directorio uploads, permitiendo el acceso público a las 
+   imágenes subidas.
 
 ---
 ## **Usando Postman o Thunder**
