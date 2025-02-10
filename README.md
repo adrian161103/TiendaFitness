@@ -68,7 +68,7 @@ npm run dev
 - POST /api/category/create : Crea una nueva categoría ➕
 - DELETE /api/category/delete/ :id : Elimina una categoría 🗑️
 ---
-##🧑‍💻**Detalles adicionales del código** 
+## 🧑‍💻**Detalles adicionales del código** 
 - **Manejo de Carga de Imágenes con Multer** 
 - Configuración de Multer:
  El proyecto utiliza Multer (configurado en src/middlewares/upload.js) para gestionar la carga de archivos. Se define un almacenamiento 
