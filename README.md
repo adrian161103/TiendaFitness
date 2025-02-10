@@ -90,29 +90,30 @@ generada a la propiedad imageUrl del producto.
 ---
 
 ## **Seguridad y Organización**
--Autenticación:
+- Autenticación:
  Se implementa autenticación basada en JSON Web Tokens (JWT). El middleware verifyTokenMiddleware.js se encarga de verificar el token enviado 
  en la cabecera Authorization, garantizando que solo usuarios autenticados puedan acceder a determinados endpoints.
 
--Manejo de Sesiones:
+- Manejo de Sesiones:
  Se utiliza express-session para gestionar sesiones, proporcionando una capa adicional de seguridad y control del estado del usuario.
 
--Estructura Modular:
+- Estructura Modular:
  El proyecto está organizado en módulos:
 
-  -Controladores: Lógica de negocio y operaciones CRUD (por ejemplo, productController.js).
-  -Rutas: Definición de endpoints (por ejemplo, productRoute.js).
-  -Middlewares: Funcionalidades auxiliares como la verificación de tokens y la carga de archivos.
-  -Modelos: Esquemas y modelos para MongoDB.
-  -Servir Archivos Estáticos:
-   En src/index.js se configura Express para servir archivos estáticos desde el directorio uploads, permitiendo el acceso público a las 
-   imágenes subidas.
+  - Controladores: Lógica de negocio y operaciones CRUD (por ejemplo, productController.js).
+  - Rutas: Definición de endpoints (por ejemplo, productRoute.js).
+  - Middlewares: Funcionalidades auxiliares como la verificación de tokens y la carga de archivos.
+  - Modelos: Esquemas y modelos para MongoDB.
+  - Servir Archivos Estáticos:
+    En src/index.js se configura Express para servir archivos estáticos desde el directorio uploads, permitiendo el acceso público a las 
+    imágenes subidas.
 
 ---
 ## **Usando Postman o Thunder**
 - Ejemplo de como /crear un usuario, usando Postman (se hace de manera similar en thunder).
   
-![image](https://github.com/user-attachments/assets/484b6a71-894b-4c22-9232-bfdeb88e73e5)
+![image](https://github.com/user-attachments/assets/63ac4d56-b91a-4b7a-8241-1c2e0450094d)
+
 
 
 
