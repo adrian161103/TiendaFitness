@@ -72,7 +72,7 @@ productSchema.methods.decreaseStock = async function (amount) {
 };
 
 productSchema.virtual("priceWithProfiRate").get(function () {
-  return this.price.amount * this.profiRate; 
+  return this.price.amount * this.profiRate;
 });
 
 productSchema.set("toJSON", { virtuals: true });
