@@ -88,9 +88,9 @@ if (bcrypt.compareSync(req.body.password, userFound.password)){
     email: userFound.email,
   };
   const token = jwt.sign(payload, "secret", {expiresIn: "1d", });
-  
+  const role = userFound.role;
 
-  return res.status(200).json({message: "logged in",token});
+  return res.status(200).json({message: "logged in",token, role});
 } else{
   return res.status(404).json({ message: "Incorrect email or password" });
 }

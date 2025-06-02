@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const statusEnum = ["disponible", "no disponible", "descontinuado"];
+export const statusEnum = ["AVAILABLE", "NOT AVAILABLE", "DISCONTINUED", ];
 
 const productSchema = new mongoose.Schema({
   name: {
@@ -9,19 +9,15 @@ const productSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
     unique: true,
-    minLength: 2,
-    maxLength: 100,
   },
   description: {
     type: String,
-    minLength: 2,
-    maxLength: 500,
   },
   status: {
     type: String,
-    enum: statusEnum, 
+    enum: statusEnum,
     required: true,
-    default: "disponible",
+    default: "AVAILABLE",
   },
   price: {
     amount: {
@@ -32,7 +28,7 @@ const productSchema = new mongoose.Schema({
     currency: {
       type: String,
       required: [true, "La moneda es requerida"],
-      enum: ["USD", "PESOS", "EUR"], 
+      enum: ["USD", "PESOS", "EUR"], // Corregido: ya no se necesita `values`
       default: "USD",
       set: (value) => value.toUpperCase(),
     },
@@ -63,6 +59,7 @@ const productSchema = new mongoose.Schema({
   },
 });
 
+// Método para disminuir stock
 productSchema.methods.decreaseStock = async function (amount) {
   if (this.stock < amount) {
     throw new Error("No hay stock suficiente");
@@ -71,10 +68,12 @@ productSchema.methods.decreaseStock = async function (amount) {
   return this.save();
 };
 
+// Virtual para calcular precio con margen de ganancia
 productSchema.virtual("priceWithProfiRate").get(function () {
-  return this.price.amount * this.profiRate;
+  return this.price.amount * this.profiRate; // Corregido
 });
 
+// Configuración para incluir virtuals en JSON
 productSchema.set("toJSON", { virtuals: true });
 productSchema.set("toObject", { virtuals: true });
 

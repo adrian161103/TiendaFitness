@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { isGoodPassword } from "../utils/validators.js";
 import bcrypt from "bcrypt";
 
+export const rolesEnum = ["USER", "ADMIN"];
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -39,7 +40,7 @@ const userSchema = new mongoose.Schema({
         },
         registrationDate:{
             type:Date,
-            default:Date.now()
+            default:Date.now
         },
     password: {
         required: true,
@@ -51,6 +52,17 @@ const userSchema = new mongoose.Schema({
         message: "La contraseña no cumple con los requisitos, necesita un digito, una letra minuscula y una letra mayuscula y de 6 a 12 caracteres"
       }
     },
+    role: {
+        type: String,
+        required: [true, "role field is required"],
+        enum: rolesEnum,
+        default: "USER",
+        validate: {
+        validator: function (role) {
+            return rolesEnum.includes(role);      
+        },
+        message: props => `El rol ${props.value} no es valido`
+    }}
 });
 
 

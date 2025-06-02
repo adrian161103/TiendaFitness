@@ -1,4 +1,4 @@
-import Product from "../models/productModel.js";
+import Product, { statusEnum } from "../models/productModel.js";
 
 export const getProducts = async (req, res) => {
   try {
@@ -17,25 +17,31 @@ export const getProducts = async (req, res) => {
 export const createProduct = async (req, res) => {
   console.log("Contenido de req.body:", req.body);
   try {
+    // Construimos un objeto plano a partir de req.body
     const data = { ...req.body };
 
+    // Transformamos los campos de precio que llegan como "price[amount]" y "price[currency]"
     if (data["price[amount]"] && data["price[currency]"]) {
       data.price = {
         amount: Number(data["price[amount]"]),
         currency: data["price[currency]"].toUpperCase(),
       };
+      // Eliminamos las propiedades planas para evitar conflictos
       delete data["price[amount]"];
       delete data["price[currency]"];
     }
 
+    // Si se subió un archivo, asignamos la ruta completa al campo imageUrl
     if (req.file) {
       data.imageUrl = `${req.protocol}://${req.get("host")}/${req.file.path}`;
     }
 
+    // Normalizamos el nombre: removemos espacios extra y convertimos a minúsculas
     if (data.name) {
       data.name = data.name.trim().toLowerCase();
     }
 
+    // Verificamos que existan los campos requeridos
     if (!data.name) {
       return res.status(400).json({ message: "El nombre es requerido" });
     }
@@ -43,6 +49,7 @@ export const createProduct = async (req, res) => {
       return res.status(400).json({ message: "El precio es requerido" });
     }
 
+    // Verificamos si ya existe un producto con el mismo nombre
     const productExist = await Product.findOne({ name: data.name });
     if (productExist) {
       return res
@@ -50,6 +57,7 @@ export const createProduct = async (req, res) => {
         .json({ message: `El producto ${data.name} ya existe` });
     }
 
+    // Creamos la instancia del producto con el objeto transformado
     const newProduct = new Product(data);
     const savedProduct = await newProduct.save();
 
@@ -93,16 +101,27 @@ export const findProductById = async (req, res) => {
 export const updateProduct = async (req, res) => {
   try {
     const _id = req.params.id;
-    const productExist = await Product.findOne({ _id });
+
+    const productExist = await Product.findById(_id);
     if (!productExist) {
-      return res.status(400).json({ message: `product  does not exist` });
+      return res.status(404).json({ message: `El producto no existe` });
     }
-    const updateProduct = await Product.findByIdAndUpdate({ _id }, req.body, {
-      new: true
+    if (req.file) {
+      req.body.imageUrl = `${req.protocol}://${req.get("host")}/${req.file.path}`;
+    }
+    if (req.body.price && typeof req.body.price === "string") {
+      req.body.price = JSON.parse(req.body.price);
+    }
+    const updatedProduct = await Product.findByIdAndUpdate(_id, req.body, {
+      new: true, 
+      runValidators: true, 
     });
-    res.status(200).json(updateProduct);
+    console.log("Producto actualizado:", updatedProduct);
+
+    res.status(200).json(updatedProduct);
   } catch (error) {
-    res.status(500).json({ message: "internal server error", error });
+    console.error("Error al actualizar el producto:", error);
+    res.status(500).json({ message: "Error interno del servidor", error });
   }
 };
 
@@ -119,4 +138,12 @@ export const deleteProduct = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "internal server error", error });
   }
+};
+
+export const getStatus=async(req,res)=>{
+  try {
+    return res.status(200).json(statusEnum);
+    } catch (error) {
+      res.status(500).json({ message: "internal server error", error });
+    }
 };
