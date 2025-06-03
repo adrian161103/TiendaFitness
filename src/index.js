@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { PORT } from "./config.js";
+import { PORT, MONGODB_URI } from "./config.js";
 import {conectDB} from "./db.js";
 import userRoute from "./routes/userRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
@@ -37,6 +37,20 @@ app.use("/api/category",categoryRoute)
 app.use("/api/product",productRoute)
 
 
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-}); 
+if (!MONGODB_URI) {
+  console.error("❌ ERROR: La variable MONGODB_URI no está definida");
+  process.exit(1);
+}
+
+conectDB()
+  .then(() => {
+    console.log("✅ Base de datos conectada correctamente");
+    // Sólo arrancamos el servidor después de conectar a la base:
+    app.listen(PORT, () => {
+      console.log(`🚀 Servidor escuchando en puerto ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("❌ Error al conectar a la base de datos:", err);
+    process.exit(1);
+  });
